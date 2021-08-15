@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo "(1) Block Port"
+echo "(2) Unblock Port"
+echo "(3) Reset all ports"
+echo ""
+read -r -p  $'Please enter the option you want to use: ' opt
+
+if [ opt = "1" ]; then
+  while true; do
+    echo ""
+    read -r -p  $'Please enter the port you want to block: ' port
+    echo ""
+    isBlocked=$(iptables -L -n | grep $port)
+    if [ isBlocked = "" ]; then
+      iptables -A INPUT -p tcp --dport $port -j DROP
+      echo "The port $port has been succesfully blocked."
+    else
+      echo "This port is already blocked."
+    fi
+  done
+elif [ opt = "2" ]; then
+  while true; do
+    echo ""
+    read -r -p  $'Please enter the port you want to unblock: ' port
+    echo ""
+    isBlocked=$(iptables -L -n | grep $port)
+    if [ isBlocked = "" ]; then
+      echo "This port isn't blocked."
+    else
+      iptables -D INPUT -p tcp --dport $port -j DROP
+      echo "The port $port has been succesfully unblocked."
+    fi
+  done
+elif [ opt = "3" ]; then
+
+  echo ""
+  sudo iptables -F
+  echo "The IPTables has been succesfully reseted."
+  exit
+  
+else
+  
+fi
