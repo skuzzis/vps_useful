@@ -6,7 +6,7 @@ echo "(3) Reset all ports"
 echo ""
 read -r -p  $'Please enter the option you want to use: ' opt
 
-if [ opt = "1" ]; then
+if [ "$opt" = "1" ]; then
   while true; do
     echo ""
     read -r -p  $'Please enter the port you want to block: ' port
@@ -19,7 +19,7 @@ if [ opt = "1" ]; then
       echo "This port is already blocked."
     fi
   done
-elif [ opt = "2" ]; then
+elif [ "$opt" = "2" ]; then
   while true; do
     echo ""
     read -r -p  $'Please enter the port you want to unblock: ' port
@@ -32,7 +32,7 @@ elif [ opt = "2" ]; then
       echo "The port $port has been succesfully unblocked."
     fi
   done
-elif [ opt = "3" ]; then
+elif [ "$opt" = "3" ]; then
 
   echo ""
   sudo iptables -F
