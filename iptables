@@ -40,5 +40,5 @@ elif [ opt = "3" ]; then
   exit
   
 else
-  
-fi
+  echo "Invalid option."
+fi 
