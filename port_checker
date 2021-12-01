@@ -10,15 +10,15 @@ reset_color="\033[0m"
 yellow="\033[1;33m"
 
 if [ "${protocol}" = "udp" ]; then
-  if [ ! "$(nc -z -v -u ${ip} ${port} 2>&1 | grep open)" = "" ]; then
-    echo \-e "[${green}SCYTE.ro{reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}${protocol}${reset_color} for ${green}${ip}${reset_color} is ${green}open${default}."
+  if [ ! "$(timeout 5 nc -z -v -u ${ip} ${port} 2>&1 | grep open)" = "" ]; then
+    echo \-e "[${green}SCYTE.ro${reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}udp${reset_color} for ${green}${ip}${reset_color} is ${green}open${default}."
   else
-    echo \-e "[${green}SCYTE.ro{reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}${protocol}${reset_color} for ${green}${ip}${reset_color} is ${red}closed${default}."
+    echo \-e "[${green}SCYTE.ro${reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}udp${reset_color} for ${green}${ip}${reset_color} is ${red}closed${default}."
   fi
 else
-  if [ ! "$(nc -z -v ${ip} ${port} 2>&1 | grep open)" = "" ]; then
-    echo \-e "[${green}SCYTE.ro{reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}${protocol}${reset_color} for ${green}${ip}${reset_color} is ${green}open${default}."
+  if [ ! "$(timeout 5 nc -z -v ${ip} ${port} 2>&1 | grep open)" = "" ]; then
+    echo \-e "[${green}SCYTE.ro${reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}tcp${reset_color} for ${green}${ip}${reset_color} is ${green}open${default}."
   else
-    echo \-e "[${green}SCYTE.ro{reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}${protocol}${reset_color} for ${green}${ip}${reset_color} is ${red}closed${default}."
+    echo \-e "[${green}SCYTE.ro${reset_color}] The port ${green}${port}${reset_color}, with protocol ${green}tcp${reset_color} for ${green}${ip}${reset_color} is ${red}closed${default}."
   fi
 fi
